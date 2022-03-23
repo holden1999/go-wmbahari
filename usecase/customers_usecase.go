@@ -7,15 +7,15 @@ import (
 )
 
 type CustomerUseCase interface {
-	Order(food, name string) error
+	Order(food, name, quantity string) error
 }
 
 type customerUseCase struct {
 	repo repository.CustomerRepo
 }
 
-func (c *customerUseCase) Order(food, name string) error {
-	newOrder := model.NewOrder(food, name)
+func (c *customerUseCase) Order(food, name, quantity string) error {
+	newOrder := model.NewOrder(food, name, quantity)
 	err := c.repo.Order(newOrder)
 	if err != nil {
 		return errors.New("Order Failed")

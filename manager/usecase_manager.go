@@ -5,6 +5,7 @@ import "go-wmb/usecase"
 type UseCaseManager interface {
 	CustomerOrderUseCase() usecase.CustomerUseCase
 	ListFoodUseCase() usecase.CashierUseCase
+	ReserveTableUseCase() usecase.CashierUseCase
 }
 
 type useCaseManager struct {

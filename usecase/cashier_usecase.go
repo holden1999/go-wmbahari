@@ -2,13 +2,12 @@ package usecase
 
 import (
 	"errors"
-	"github.com/jmoiron/sqlx"
 	"go-wmb/repository"
 )
 
 type CashierUseCase interface {
 	GetFood() error
-	ListTable() sqlx.DB
+	ListTable() error
 	OrderTable(number string)
 }
 
@@ -16,9 +15,8 @@ type cashierUseCase struct {
 	repo repository.CashierRepo
 }
 
-func (c *cashierUseCase) ListTable() sqlx.DB {
-	//TODO implement me
-	panic("implement me")
+func (c *cashierUseCase) ListTable() error {
+
 }
 
 func (c *cashierUseCase) OrderTable(number string) {

@@ -27,12 +27,13 @@ func main() {
 	delivery.MainMenu()
 	for {
 		var choice string
-		fmt.Scanln(&choice)
+		fmt.Println("Pilih menu : ")
+		fmt.Scan(&choice)
 		switch choice {
 		case "1":
 			delivery.OrderForm(appconfig.UseCaseManager.CustomerOrderUseCase())
 		case "2":
-			//delivery.TableForm(appconfig.UseCaseManager.OrderTableUseCase())
+			delivery.TableForm(appconfig.UseCaseManager.ReserveTableUseCase())
 		case "3":
 			delivery.ListFoodForm(appconfig.UseCaseManager.ListFoodUseCase())
 		}

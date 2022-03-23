@@ -23,7 +23,7 @@ type tables struct {
 
 func (c *cashierRepoImpl) GetFood() error {
 	tables := []tables{}
-	err := c.cashierDb.Select(&tables, "select * from master_foods")
+	err := c.cashierDb.Select(tables, "select * from master_foods")
 	if err != nil {
 		fmt.Println(tables)
 		errors.New("Failed Show Table")

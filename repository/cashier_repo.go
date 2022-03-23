@@ -1,6 +1,7 @@
 package repository
 
 type CashierRepo interface {
-	OrderTable(number string)
 	GetFood() error
+	ListTable() error
+	OrderTable(number string)
 }
