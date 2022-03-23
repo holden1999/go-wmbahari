@@ -20,8 +20,7 @@ func (c *cashierUseCase) ListTable() error {
 }
 
 func (c *cashierUseCase) OrderTable(number string) {
-	//TODO implement me
-	panic("implement me")
+
 }
 
 func (c *cashierUseCase) GetFood() error {
