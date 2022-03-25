@@ -4,29 +4,31 @@ import "go-wmb/usecase"
 
 type UseCaseManager interface {
 	CustomerOrderUseCase() usecase.CustomerUseCase
-	ListFoodUseCase() usecase.CashierUseCase
-	ReserveTableUseCase() usecase.CashierUseCase
+	FoodListUseCase() usecase.ShowListUseCase
+	TableListUseCase() usecase.ShowListUseCase
+	CustomerPaymentUseCase() usecase.CustomerUseCase
 }
 
 type useCaseManager struct {
 	repo RepoManager
 }
 
-func (u *useCaseManager) ListFoodUseCase() usecase.CashierUseCase {
-	return usecase.ListFoodUseCase(u.repo.CashierRepo())
+func (u *useCaseManager) TableListUseCase() usecase.ShowListUseCase {
+	return usecase.NewTableListUseCase(u.repo.ShowListTableRepo())
 }
 
-func (u *useCaseManager) OrderTableUseCase() usecase.CashierUseCase {
-	//TODO implement me
-	panic("implement me")
+func (u *useCaseManager) FoodListUseCase() usecase.ShowListUseCase {
+	return usecase.NewFoodListUseCase(u.repo.ShowListFoodRepo())
 }
 
 func (u *useCaseManager) CustomerOrderUseCase() usecase.CustomerUseCase {
-	return usecase.NewOrderUseCase(u.repo.CustomerRepo())
+	return usecase.NewOrderUseCase(u.repo.CustomerOrderRepo())
+}
+
+func (u *useCaseManager) CustomerPaymentUseCase() usecase.CustomerUseCase {
+	return usecase.NewPaymentUseCase(u.repo.CustomerPaymentRepo())
 }
 
 func NewUseCaseManager(manager RepoManager) *useCaseManager {
-	return &useCaseManager{
-		repo: manager,
-	}
+	return &useCaseManager{repo: manager}
 }

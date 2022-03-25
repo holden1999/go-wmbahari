@@ -8,20 +8,35 @@ import (
 )
 
 type customerRepoImpl struct {
-	customerDb *sqlx.DB
+	db *sqlx.DB
+}
+
+func (c *customerRepoImpl) Payment(newPayment model.Payment) []model.Payment {
+	var totalInvoice int
+	invoiceDetail := []model.Payment{}
+	err := c.db.Select(&invoiceDetail, "select * from customer_orders inner join master_food on code = food_code where table_number = $1", newPayment.GetTableNumber())
+	c.db.Select(&totalInvoice, "select sum(price) from master_food ")
+	c.db.MustExec("update master_table set available_status = true where id = $1 ", newPayment.GetTableNumber())
+	if err != nil {
+		errors.New("Failed showing Invoice detail")
+	}
+	fmt.Println(invoiceDetail)
+	return invoiceDetail
 }
 
 func (c *customerRepoImpl) Order(newOrder model.Order) error {
-	var inc int
-	c.customerDb.Select(&inc, "select count(*) from customer_table")
-	err := c.customerDb.MustExec("insert into customer_orders (id, table_num, person, foods, f_quantity ) values ($1, $2, $3, $4, $5)", int(inc), int(inc), newOrder.GetOrderName(), newOrder.GetFoodName(), newOrder.GetFoodQuantity())
-	fmt.Println(newOrder.GetFoodName())
+	err := c.db.MustExec("insert into customer_orders ( table_number, person, food_code) values ($1, $2, $3)", newOrder.GetTableNumber(), newOrder.GetOrderName(), newOrder.GetFoodName())
+	c.db.MustExec("update master_table set available_status = false where id = $1 ", newOrder.GetTableNumber())
 	if err != nil {
 		return errors.New("Query Error")
 	}
 	return nil
 }
 
-func NewCustomerRepo(customerDb *sqlx.DB) CustomerRepo {
-	return &customerRepoImpl{customerDb: customerDb}
+func NewCustomerRepo(db *sqlx.DB) CustomerRepo {
+	return &customerRepoImpl{db: db}
+}
+
+func NewPaymentRepo(db *sqlx.DB) CustomerRepo {
+	return &customerRepoImpl{db: db}
 }

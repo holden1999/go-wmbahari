@@ -1,22 +1,34 @@
 package manager
 
-import "go-wmb/repository"
+import (
+	"go-wmb/repository"
+)
 
 type RepoManager interface {
-	CustomerRepo() repository.CustomerRepo
-	CashierRepo() repository.CashierRepo
+	CustomerOrderRepo() repository.CustomerRepo
+	ShowListFoodRepo() repository.ShowListRepo
+	ShowListTableRepo() repository.ShowListRepo
+	CustomerPaymentRepo() repository.CustomerRepo
 }
 
 type repoManager struct {
 	infra Infra
 }
 
-func (r *repoManager) CashierRepo() repository.CashierRepo {
+func (r *repoManager) CustomerOrderRepo() repository.CustomerRepo {
+	return repository.NewCustomerRepo(r.infra.SqlDb())
+}
+
+func (r *repoManager) CustomerPaymentRepo() repository.CustomerRepo {
+	return repository.NewPaymentRepo(r.infra.SqlDb())
+}
+
+func (r *repoManager) ShowListFoodRepo() repository.ShowListRepo {
 	return repository.ListFoodRepo(r.infra.SqlDb())
 }
 
-func (r *repoManager) CustomerRepo() repository.CustomerRepo {
-	return repository.NewCustomerRepo(r.infra.SqlDb())
+func (r *repoManager) ShowListTableRepo() repository.ShowListRepo {
+	return repository.ListTableRepo(r.infra.SqlDb())
 }
 
 func NewRepoManager(infra Infra) RepoManager {

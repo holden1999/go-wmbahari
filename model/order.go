@@ -1,36 +1,31 @@
 package model
 
-import "github.com/jmoiron/sqlx"
-
 type Order struct {
-	foodName     string
-	orderName    string
-	foodQuantity string
+	FoodCode    string
+	OrderName   string
+	TableNumber int
 }
 
 func (o *Order) GetFoodName() string {
-	return o.foodName
+	return o.FoodCode
 }
 
 func (o *Order) GetOrderName() string {
-	return o.orderName
-}
-func (o *Order) GetFoodQuantity() string {
-	return o.foodQuantity
+	return o.OrderName
 }
 
-func (f *Order) Order(newOrder Order) sqlx.DB {
-	return sqlx.DB{}
+func (o *Order) GetTableNumber() int {
+	return o.TableNumber
 }
 
-func Search(foodCode string) string {
-	return ""
-}
+//func (f *Order) Order(Order) sqlx.DB {
+//	return sqlx.DB{}
+//}
 
-func NewOrder(foodName, orderName, foodQuantity string) Order {
+func NewOrder(foodCode, orderName string, tableNumber int) Order {
 	return Order{
-		foodName:     foodName,
-		orderName:    orderName,
-		foodQuantity: foodQuantity,
+		FoodCode:    foodCode,
+		OrderName:   orderName,
+		TableNumber: tableNumber,
 	}
 }

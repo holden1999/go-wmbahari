@@ -33,9 +33,11 @@ func main() {
 		case "1":
 			delivery.OrderForm(appconfig.UseCaseManager.CustomerOrderUseCase())
 		case "2":
-			delivery.TableForm(appconfig.UseCaseManager.ReserveTableUseCase())
+			delivery.TableForm(appconfig.UseCaseManager.TableListUseCase())
 		case "3":
-			delivery.ListFoodForm(appconfig.UseCaseManager.ListFoodUseCase())
+			delivery.ListFoodForm(appconfig.UseCaseManager.FoodListUseCase())
+		case "4":
+			delivery.PaymentForm(appconfig.UseCaseManager.CustomerPaymentUseCase())
 		}
 	}
 }
