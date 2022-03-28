@@ -1,4 +1,4 @@
-package delivery
+package cli
 
 import (
 	"fmt"
@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-func OrderForm(usecase usecase.CustomerUseCase) {
+func OrderForm(usecase usecase.CustomerOrderUseCase) {
 	var (
 		foodCode    string
 		nameOrder   string

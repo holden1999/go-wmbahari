@@ -3,10 +3,10 @@ package manager
 import "go-wmb/usecase"
 
 type UseCaseManager interface {
-	CustomerOrderUseCase() usecase.CustomerUseCase
+	CustomerOrderUseCase() usecase.CustomerOrderUseCase
 	FoodListUseCase() usecase.ShowListUseCase
 	TableListUseCase() usecase.ShowListUseCase
-	CustomerPaymentUseCase() usecase.CustomerUseCase
+	CustomerPaymentUseCase() usecase.CustomerOrderUseCase
 }
 
 type useCaseManager struct {
@@ -21,11 +21,11 @@ func (u *useCaseManager) FoodListUseCase() usecase.ShowListUseCase {
 	return usecase.NewFoodListUseCase(u.repo.ShowListFoodRepo())
 }
 
-func (u *useCaseManager) CustomerOrderUseCase() usecase.CustomerUseCase {
+func (u *useCaseManager) CustomerOrderUseCase() usecase.CustomerOrderUseCase {
 	return usecase.NewOrderUseCase(u.repo.CustomerOrderRepo())
 }
 
-func (u *useCaseManager) CustomerPaymentUseCase() usecase.CustomerUseCase {
+func (u *useCaseManager) CustomerPaymentUseCase() usecase.CustomerOrderUseCase {
 	return usecase.NewPaymentUseCase(u.repo.CustomerPaymentRepo())
 }
 

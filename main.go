@@ -1,11 +1,5 @@
 package main
 
-import (
-	"fmt"
-	"go-wmb/config"
-	"go-wmb/delivery"
-)
-
 /*Applikasi warung makan
 
 Warung Makan Bahari (WMB) adalah sebuah warteg yg sangat laku dan terkenal di daerah ragunan.
@@ -22,22 +16,35 @@ ketentuan :
 -setelah konsumen selesai makan, dapat melakukan pembayaran di kasir dan kemudian meja tersebut sudah available untuk konsumen berikutnya
 */
 
+//func init() {
+//	viper.SetConfigFile(`config.yaml`)
+//	err := viper.ReadInConfig()
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	if viper.GetBool(`debug`) {
+//		log.Println("Service RUN DEBUG mode")
+//	}
+//}
+
 func main() {
-	appconfig := config.NewConfig()
-	delivery.MainMenu()
-	for {
-		var choice string
-		fmt.Println("Pilih menu : ")
-		fmt.Scan(&choice)
-		switch choice {
-		case "1":
-			delivery.OrderForm(appconfig.UseCaseManager.CustomerOrderUseCase())
-		case "2":
-			delivery.TableForm(appconfig.UseCaseManager.TableListUseCase())
-		case "3":
-			delivery.ListFoodForm(appconfig.UseCaseManager.FoodListUseCase())
-		case "4":
-			delivery.PaymentForm(appconfig.UseCaseManager.CustomerPaymentUseCase())
-		}
-	}
+	Server().Run()
+	//	appconfig := config.NewConfig()
+	//	cli.MainMenu()
+	//	for {
+	//		var choice string
+	//		fmt.Println("Pilih menu : ")
+	//		fmt.Scan(&choice)
+	//		switch choice {
+	//		case "1":
+	//			cli.OrderForm(appconfig.UseCaseManager.CustomerOrderUseCase())
+	//		case "2":
+	//			cli.TableForm(appconfig.UseCaseManager.TableListUseCase())
+	//		case "3":
+	//			cli.ListFoodForm(appconfig.UseCaseManager.FoodListUseCase())
+	//		case "4":
+	//			cli.PaymentForm(appconfig.UseCaseManager.CustomerPaymentUseCase())
+	//		}
+	//	}
 }
