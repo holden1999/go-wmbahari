@@ -1,29 +1,29 @@
 package model
 
-type FoodList struct {
+type Food struct {
 	FoodCode  string `db:"code"`
 	FoodName  string `db:"name"`
 	FoodPrice int    `db:"price"`
 }
 
-func (f *FoodList) SetFoodCode(code string) {
+func (f *Food) SetFoodCode(code string) {
 	f.FoodCode = code
 }
 
-func (f *FoodList) SetFoodName(name string) {
+func (f *Food) SetFoodName(name string) {
 	f.FoodName = name
 }
-func (f *FoodList) SetFoodPrice(price int) {
+func (f *Food) SetFoodPrice(price int) {
 	f.FoodPrice = price
 }
-func (f *FoodList) GetFoodCode() string {
+func (f *Food) GetFoodCode() string {
 	return f.FoodCode
 }
 
-func (f *FoodList) GetFoodName() string {
+func (f *Food) GetFoodName() string {
 	return f.FoodName
 }
 
-func (f *FoodList) GetFoodPrice() int {
+func (f *Food) GetFoodPrice() int {
 	return f.FoodPrice
 }

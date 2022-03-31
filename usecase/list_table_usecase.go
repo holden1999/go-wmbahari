@@ -5,18 +5,18 @@ import (
 	"go-wmb/repository"
 )
 
-type ListTableUseCase interface {
-	GetTable() []model.TableList
+type TableUseCase interface {
+	GetTable() ([]model.Table, error)
 }
 
-type listTableUseCase struct {
-	repo repository.ListFoodRepo
+type tableUseCase struct {
+	repo repository.TableRepo
 }
 
-func (c *listTableUseCase) GetTable() []model.TableList {
-	return c.repo.GetTable()
+func (t *tableUseCase) GetTable() ([]model.Table, error) {
+	return t.repo.GetTable()
 }
 
-func NewTableListUseCase(repo repository.ListFoodRepo) ListTableUseCase {
-	return &listTableUseCase{repo: repo}
+func NewTableListUseCase(repo repository.TableRepo) TableUseCase {
+	return &tableUseCase{repo: repo}
 }

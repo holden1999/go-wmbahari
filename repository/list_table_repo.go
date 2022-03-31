@@ -1,28 +1,27 @@
 package repository
 
 import (
-	"errors"
-	"github.com/jmoiron/sqlx"
 	"go-wmb/model"
+	"gorm.io/gorm"
 )
 
-type ListTableRepo interface {
-	GetTable() []model.TableList
+type TableRepo interface {
+	GetTable() ([]model.Table, error)
 }
 
-type listTableRepo struct {
-	db *sqlx.DB
+type tableRepo struct {
+	db *gorm.DB
 }
 
-func (l *listTableRepo) GetTable() []model.TableList {
-	tableData := []model.TableList{}
-	err := l.db.Select(&tableData, "select * from master_table")
+func (t *tableRepo) GetTable() ([]model.Table, error) {
+	tables := make([]model.Table, 0)
+	err := t.db.Find(&tables).Error
 	if err != nil {
-		errors.New("Failed showing Table List")
+		return nil, err
 	}
-	return tableData
+	return tables, nil
 }
 
-func NewListTableRepo(db *sqlx.DB) ListTableRepo {
-	return &listTableRepo{db: db}
+func NewListTableRepo(db *gorm.DB) TableRepo {
+	return &tableRepo{db: db}
 }

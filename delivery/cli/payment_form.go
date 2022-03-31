@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func PaymentForm(usecase usecase.CustomerOrderUseCase) {
+func PaymentForm(usecase usecase.OrderUseCase) {
 	var (
 		tableNumber int
 		choice      string

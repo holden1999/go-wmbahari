@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-func OrderForm(usecase usecase.CustomerOrderUseCase) {
+func OrderForm(usecase usecase.OrderUseCase) {
 	var (
 		foodCode    string
 		nameOrder   string

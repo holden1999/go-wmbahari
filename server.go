@@ -10,26 +10,33 @@ type AppServer interface {
 	Run()
 }
 
-type appServer struct {
+type customerServer struct {
 	routerEngine *gin.Engine
 	config       *config.Config
 }
 
-func (s *appServer) initHandlers() {
-	s.v1()
+type listServer struct {
+	routerEngine *gin.Engine
+	config       *config.Config
 }
 
-func (s *appServer) v1() {
-	CustomerApiGroup := s.routerEngine.Group("/customer")
+func (c *customerServer) initHandlers() {
+	c.v1()
+}
+
+func (c *customerServer) v1() {
+	CustomerApiGroup := c.routerEngine.Group("/customer")
 	api.NewOrderApi(CustomerApiGroup)
 
-	FoodListApiGroup := s.routerEngine.Group("/list")
-	api.GetListApi(FoodListApiGroup)
+	ListApiGroup := c.routerEngine.Group("/list")
+	api.GetListApi(ListApiGroup)
+
 }
 
-func (s *appServer) Run() {
-	s.initHandlers()
-	err := s.routerEngine.Run("localhost:3333")
+func (c *customerServer) Run() {
+	c.initHandlers()
+	api := c.config.Get("wmbahari.api.url")
+	err := c.routerEngine.Run(api)
 	if err != nil {
 		panic(err)
 	}
@@ -37,8 +44,8 @@ func (s *appServer) Run() {
 
 func Server() AppServer {
 	r := gin.Default()
-	c := config.NewConfig()
-	return &appServer{
+	c := config.NewConfig(".", "config.yaml")
+	return &customerServer{
 		routerEngine: r,
 		config:       c,
 	}

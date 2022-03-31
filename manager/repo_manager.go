@@ -5,29 +5,29 @@ import (
 )
 
 type RepoManager interface {
-	CustomerOrderRepo() repository.CustomerOrderRepo
-	ShowListFoodRepo() repository.ListFoodRepo
-	ShowListTableRepo() repository.ListTableRepo
-	CustomerPaymentRepo() repository.CustomerPaymentRepo
+	CustomerOrderRepo() repository.OrderRepo
+	ShowListFoodRepo() repository.FoodRepo
+	ShowListTableRepo() repository.TableRepo
+	CustomerPaymentRepo() repository.PaymentRepo
 }
 
 type repoManager struct {
 	infra Infra
 }
 
-func (r *repoManager) CustomerOrderRepo() repository.CustomerOrderRepo {
+func (r *repoManager) CustomerOrderRepo() repository.OrderRepo {
 	return repository.NewCustomerOrderRepo(r.infra.SqlDb())
 }
 
-func (r *repoManager) CustomerPaymentRepo() repository.CustomerPaymentRepo {
+func (r *repoManager) CustomerPaymentRepo() repository.PaymentRepo {
 	return repository.NewCustomerPaymentRepo(r.infra.SqlDb())
 }
 
-func (r *repoManager) ShowListFoodRepo() repository.ListFoodRepo {
+func (r *repoManager) ShowListFoodRepo() repository.FoodRepo {
 	return repository.NewListFoodRepo(r.infra.SqlDb())
 }
 
-func (r *repoManager) ShowListTableRepo() repository.ListTableRepo {
+func (r *repoManager) ShowListTableRepo() repository.TableRepo {
 	return repository.NewListTableRepo(r.infra.SqlDb())
 }
 

@@ -1,28 +1,28 @@
 package repository
 
 import (
-	"github.com/jmoiron/sqlx"
-	"github.com/pkg/errors"
 	"go-wmb/model"
+	"gorm.io/gorm"
 )
 
-type CustomerPaymentRepo interface {
-	Payment(newPayment model.Payment) error
+type PaymentRepo interface {
+	Payment(newPayment model.Payment) ([]model.Payment, error)
 }
 
-type customerPaymentRepo struct {
-	db *sqlx.DB
+type paymentRepo struct {
+	db *gorm.DB
 }
 
-func (c *customerPaymentRepo) Payment(newPayment model.Payment) error {
-	err := c.db.MustExec("select customer_orders ( table_number, person, food_code) values ($1, $2, $3)", newOrder.GetTableNumber(), newOrder.GetOrderName(), newOrder.GetFoodName())
-	c.db.MustExec("update master_table set available_status = false where id = $1 ", newOrder.GetTableNumber())
+func (p *paymentRepo) Payment(newPayment model.Payment) ([]model.Payment, error) {
+	invoice := make([]model.Payment, 0)
+	err := p.db.Where("Table Number LIKE ?", newPayment.TableNumber).Find(&invoice).Error
+	p.db.Model(&newPayment).Where("TableNumber = ?", newPayment.TableNumber).Update("IsReserved", true)
 	if err != nil {
-		return errors.New("Query Error")
+		panic(err)
 	}
-	return nil
+	return invoice, nil
 }
 
-func NewCustomerPaymentRepo(db *sqlx.DB) CustomerPaymentRepo {
-	return &customerPaymentRepo{db: db}
+func NewCustomerPaymentRepo(db *gorm.DB) PaymentRepo {
+	return &paymentRepo{db: db}
 }

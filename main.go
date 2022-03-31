@@ -38,13 +38,13 @@ func main() {
 	//		fmt.Scan(&choice)
 	//		switch choice {
 	//		case "1":
-	//			cli.OrderForm(appconfig.UseCaseManager.CustomerOrderUseCase())
+	//			cli.OrderForm(appconfig.UseCaseManager.OrderUseCase())
 	//		case "2":
 	//			cli.TableForm(appconfig.UseCaseManager.TableListUseCase())
 	//		case "3":
 	//			cli.ListFoodForm(appconfig.UseCaseManager.FoodListUseCase())
 	//		case "4":
-	//			cli.PaymentForm(appconfig.UseCaseManager.CustomerPaymentUseCase())
+	//			cli.PaymentForm(appconfig.UseCaseManager.PaymentUseCase())
 	//		}
 	//	}
 }

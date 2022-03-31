@@ -6,15 +6,15 @@ import (
 	"go-wmb/repository"
 )
 
-type CustomerOrderUseCase interface {
+type OrderUseCase interface {
 	Order(code string, name string, table int) error
 }
 
-type customerOrderUseCase struct {
-	repo repository.CustomerOrderRepo
+type orderUseCase struct {
+	repo repository.OrderRepo
 }
 
-func (c *customerOrderUseCase) Order(code string, name string, table int) error {
+func (c *orderUseCase) Order(code string, name string, table int) error {
 	newOrder := model.NewOrder(code, name, table)
 	err := c.repo.Order(newOrder)
 	if err != nil {
@@ -23,6 +23,6 @@ func (c *customerOrderUseCase) Order(code string, name string, table int) error 
 	return nil
 }
 
-func NewOrderUseCase(repo repository.CustomerOrderRepo) *customerOrderUseCase {
-	return &customerOrderUseCase{repo: repo}
+func NewOrderUseCase(repo repository.OrderRepo) *orderUseCase {
+	return &orderUseCase{repo: repo}
 }

@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func ListFoodForm(usecase usecase.ShowListUseCase) {
+func ListFoodForm(usecase usecase.FoodUseCase) {
 	var choice string
 	for idx, food := range usecase.GetFood() {
 		fmt.Printf("%-3d%-20s%-20sRp. %-20d\n", idx+1, food.GetFoodCode(), food.GetFoodName(), food.GetFoodPrice())

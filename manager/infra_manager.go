@@ -1,21 +1,29 @@
 package manager
 
-import "github.com/jmoiron/sqlx"
+import (
+	"go-wmb/model"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
+)
 
 type Infra interface {
-	SqlDb() *sqlx.DB
+	SqlDb() *gorm.DB
 }
 
 type infra struct {
-	db *sqlx.DB
+	db *gorm.DB
 }
 
-func (i *infra) SqlDb() *sqlx.DB {
+func (i *infra) SqlDb() *gorm.DB {
 	return i.db
 }
 
-func NewInfra(dataSourcename string) Infra {
-	conn, err := sqlx.Connect("pgx", dataSourcename)
+func NewInfra(dsn string) Infra {
+	conn, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	if err != nil {
+		panic(err)
+	}
+	err = conn.AutoMigrate(&model.Food{}, &model.Table{}, &model.Order{}, &model.Payment{})
 	if err != nil {
 		panic(err)
 	}

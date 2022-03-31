@@ -1,22 +1,22 @@
 package model
 
-type TableList struct {
+type Table struct {
 	Number int  `db:"id"`
 	Status bool `db:"available_status"`
 }
 
-func (t *TableList) GetTableNumber() int {
+func (t *Table) GetTableNumber() int {
 	return t.Number
 }
 
-func (t *TableList) GetTableStatus() bool {
+func (t *Table) GetTableStatus() bool {
 	return t.Status
 }
 
-func (t *TableList) SetTableNumber(code int) {
+func (t *Table) SetTableNumber(code int) {
 	t.Number = code
 }
 
-func (t *TableList) SetTableStatus(code bool) {
+func (t *Table) SetTableStatus(code bool) {
 	t.Status = code
 }

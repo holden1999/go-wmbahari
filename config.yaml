@@ -1,11 +1,11 @@
-wm bahari:
+wmbahari:
   name: "warung makan bahari app"
   api:
     url: "localhost:3000"
     token: "123"
   postgres:
-    host: "wm_bahari"
+    host: "localhost"
     port: "5432"
-    user: "postgres"
-    pass: "holden"
-    name: "db_app"
+    user: "golang"
+    password: "holden"
+    name: "wm_bahari"

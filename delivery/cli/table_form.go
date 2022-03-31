@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func TableForm(usecase usecase.ShowListUseCase) {
+func TableForm(usecase usecase.FoodUseCase) {
 	var choice string
 	fmt.Println("Nomor Meja     Status Meja Kososng")
 	for _, table := range usecase.GetTable() {

@@ -1,28 +1,27 @@
 package repository
 
 import (
-	"github.com/jmoiron/sqlx"
-	"github.com/pkg/errors"
 	"go-wmb/model"
+	"gorm.io/gorm"
 )
 
-type ListFoodRepo interface {
-	GetFood() []model.FoodList
+type FoodRepo interface {
+	GetFood() ([]model.Food, error)
 }
 
-type listFoodRepo struct {
-	db *sqlx.DB
+type foodRepo struct {
+	db *gorm.DB
 }
 
-func (c *listFoodRepo) GetFood() []model.FoodList {
-	foodData := []model.FoodList{}
-	err := c.db.Select(&foodData, "select * from master_food")
+func (f *foodRepo) GetFood() ([]model.Food, error) {
+	foods := make([]model.Food, 0)
+	err := f.db.Select(&foods).Error
 	if err != nil {
-		errors.New("Failed Showing Food List")
+		return nil, err
 	}
-	return foodData
+	return foods, nil
 }
 
-func NewListFoodRepo(db *sqlx.DB) ListFoodRepo {
-	return &listFoodRepo{db: db}
+func NewListFoodRepo(db *gorm.DB) FoodRepo {
+	return &foodRepo{db: db}
 }

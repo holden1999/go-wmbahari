@@ -5,18 +5,18 @@ import (
 	"go-wmb/repository"
 )
 
-type ShowListUseCase interface {
-	GetFood() []model.FoodList
+type FoodUseCase interface {
+	GetFood() ([]model.Food, error)
 }
 
-type showListUseCase struct {
-	repo repository.ListFoodRepo
+type foodUseCase struct {
+	repo repository.FoodRepo
 }
 
-func (c *showListUseCase) GetFood() []model.FoodList {
-	return c.repo.GetFood()
+func (f *foodUseCase) GetFood() ([]model.Food, error) {
+	return f.repo.GetFood()
 }
 
-func NewFoodListUseCase(repo repository.ListFoodRepo) ShowListUseCase {
-	return &showListUseCase{repo: repo}
+func NewFoodListUseCase(repo repository.FoodRepo) FoodUseCase {
+	return &foodUseCase{repo: repo}
 }
